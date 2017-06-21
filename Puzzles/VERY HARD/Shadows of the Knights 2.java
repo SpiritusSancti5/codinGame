@@ -1,11 +1,6 @@
 import java.util.*;
 import java.io.*;
 import java.math.*;
-
-/**
- * Auto-generated code below aims at helping you parse
- * the standard input according to the problem statement.
- **/
  
 class Window{
     boolean bomb;
@@ -109,7 +104,6 @@ class Building{
                 }
             }
         }else{
-            System.err.println("Building is too big, using superwindows");
             superWindows=true;
             swSize = 400;
             windows = new Window[w/swSize][h/swSize];
@@ -148,10 +142,7 @@ class Building{
         }
         averageX /= count;
         averageY /= count;
-        if(!superWindows) System.err.println("Potential windows left " + count);
-        else System.err.println("Potential windows left " + count*swSize*swSize);
         if(count == 1 && superWindows){
-            System.err.println("Converting down to regular windows");
             superWindows = false;
             //find the right window
             Window lastWindow = new Window(0, 0);
@@ -173,34 +164,6 @@ class Building{
         return new int[]{Math.round(averageX), Math.round(averageY)};
     }
     
-    public int[] getExtremeCoord(){
-        int[] coord = new int[2];
-        if(flipper){
-            for(int x = 0; x<windows.length; x++){
-                for(int y = 0; y<windows[x].length; y++){
-                    if(windows[x][y].bomb()){
-                        coord[0]=x;
-                        coord[1]=y;
-                        flipper = !flipper;
-                        return coord;
-                    }
-                }
-            }
-        }else{
-            for(int x = windows.length-1; x>=0; x--){
-                for(int y = windows[x].length-1; y>=0; y--){
-                    if(windows[x][y].bomb()){
-                        coord[0]=x;
-                        coord[1]=y;
-                        flipper = !flipper;
-                        return coord;
-                    }
-                }
-            }
-        }
-        return coord;
-    }
-    
     public boolean badCoord(int[] coord){
         int x = coord[0];
         int y = coord[1];
@@ -209,19 +172,17 @@ class Building{
     
     
     public int[] rejigger(int[] jumpCoord){
-        System.err.println("Rejiggering" + jumpCoord[0] + " " + jumpCoord[1]);
         int[] coord = new int[]{jumpCoord[0], jumpCoord[1]};
         for(int y = Math.max(0, coord[1]-1); y<coord[1]+2 || y<windows[0].length; y++){
             for(int x = Math.max(0, coord[0]-1); x<coord[0]+2 || x<windows.length; x++){
-                //System.err.println("trying " + x + " " + y);
                 if(superWindows){
                     if(windows[x/swSize][y/swSize].bomb() && !badCoord(new int[]{x, y})){
-                        System.err.println("to " + x + " " + y);
+                        
                         return new int[]{x, y};
                     }
                 }else{
                     if(!badCoord(new int[]{x, y}) && windows[x][y].bomb()){
-                        System.err.println("to " + x + " " + y);
+                        
                         return new int[]{x, y};
                     }
                 }
@@ -233,7 +194,6 @@ class Building{
     
     public String solve(){
         int[] coord = getAverageCoord();
-        //int[] coord = getExtremeCoord();
         if(badCoord(coord))
             coord = rejigger(coord);
         batman.jumpTo(coord[0], coord[1]);
@@ -266,18 +226,11 @@ class Player {
         int N = in.nextInt(); // maximum number of turns before game over.
         int X0 = in.nextInt();
         int Y0 = in.nextInt();
-        System.err.println("Size: "+ W + " " + H);
         Building building = new Building(X0, Y0, W, H);
-        System.err.println("Building initialized");
         // game loop
         while (true) {
-            String BOMBDIST = in.next(); // Current distance to the bomb compared to previous distance (COLDER, WARMER, SAME or UNKNOWN)
-            System.err.println(BOMBDIST);
+            String BOMBDIST = in.next();
             building.updateWindows(BOMBDIST);
-            System.err.println("Windows updated");
-            // Write an action using System.out.println()
-            // To debug: System.err.println("Debug messages...");
-            //System.err.println(building);
             System.out.println(building.solve());
         }
     }
