@@ -1,0 +1,28 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <math.h>
+
+using namespace std;
+
+/**
+ * Auto-generated code below aims at helping you parse
+ * the standard input according to the problem statement.
+ **/
+int main()
+{
+    int N;
+    cin >> N; cin.ignore();
+
+    int ia = N;
+
+    if( ia == 1){  cout << 1 << endl; } else
+
+    // Write an action using cout. DON'T FORGET THE "<< endl"
+    // To debug: cerr << "Debug messages..." << endl;
+{
+    cerr << N << endl;
+    cout << pow(N, 3.0) - pow(N-2, 3.0) << endl;
+}
+}
