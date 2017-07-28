@@ -1,2 +1,2 @@
 # codinGame
-# possible codingame solutions
+Solutions for CodinGame challenges.
