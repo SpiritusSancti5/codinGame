@@ -121,4 +121,4 @@ while True:
     t1 = time.time()
 
     total = t1-t0
-    print("DOOF ",total, file=sys.stderr)
+    print("DOOF ",total, file=sys.stderr) 
