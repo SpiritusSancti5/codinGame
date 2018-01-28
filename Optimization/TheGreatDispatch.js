@@ -20,3 +20,11 @@ for (var i = 0; i < boxCount; i++) {
 }
 
 print(outputz.join(' '));
+
+
+// here's a list of easy TODO s that can improve your scores!!!
+// place the boxes in different order, go by i % 100 for example
+// try sorting boxes first
+// look up BFD and implement it here
+//
+// glad you enjoyed my intro code
